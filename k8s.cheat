@@ -1,0 +1,10 @@
+; ------------------------------------------------
+; This file contains cheatsheet for kubernetes
+; ------------------------------------------------
+
+% logs, kubernetes
+
+# Show logs of a pod in current namespace
+kubectl logs <pod>
+
+$ pod: kubectl get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
