@@ -14,6 +14,17 @@ $ container: kubectl get pod -n <namespace> <pod> --template '{{range .spec.cont
 
 ; ------------------------------------------------
 
+% kubernetes, pod, annotation
+
+# Get annotations of a pod
+
+kubectl -n <namespace> get pod <pod> --template '{{range $k,$v :=.metadata.annotations}}{{$k}} => {{$v}}{{"\n"}}{{end}}'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
 % kubernetes, pod, label
 
 # Get labels of a pod
