@@ -4,7 +4,19 @@
 
 % logs, kubernetes
 
-# Show logs of a pod in current namespace
-kubectl logs <pod>
+# Show logs of a pod in given namespace
+kubectl logs -n <namespace> <pod>
 
-$ pod: kubectl get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+
+% secret, kubernetes
+
+# Get a kubernetes secret value
+
+kubectl -n <namespace> get secret <secret> -o go-template='{{.data.<data> | base64decode}}'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ data: kubectl get secret -n <namespace> <secret-in-namespace> --template '{{range $k,$v := .data}}{{$k}}{{"\n"}}{{end}}'
