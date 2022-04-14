@@ -12,6 +12,19 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ container: kubectl get pod -n <namespace> <pod> --template '{{range .spec.containers}}{{.name}}{{"\n"}}{{end}}'
 
+; ------------------------------------------------
+
+% kubernetes, pod, label
+
+# Get labels of a pod
+
+kubectl -n <namespace> get pod <pod> --template '{{range $k,$v :=.metadata.labels}}{{$k}} => {{$v}}{{"\n"}}{{end}}'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
 % kubernetes, logs
 
 # Show logs of a pod in given namespace
@@ -20,6 +33,7 @@ kubectl logs -n <namespace> <pod>
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 
+; ------------------------------------------------
 
 % kubernetes, secret
 
