@@ -55,3 +55,22 @@ kubectl -n <namespace> get secret <secret> -o go-template='{{.data.<data> | base
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ data: kubectl get secret -n <namespace> <secret-in-namespace> --template '{{range $k,$v := .data}}{{$k}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, requests, limits
+
+# Get container requests and limits for pods on given namespace for kubernetes
+
+kubectl get pods -n <namespace> -o=custom-columns='NAMESPACE:.metadata.namespace,POD_NAME:.metadata.name,CONTAINER_NAME:spec.containers[*].name,MEMREQ:spec.containers[*].resources.requests.memory,MEMLIM:spec.containers[*].resources.limits.memory,CPUREQ:spec.containers[*].resources.requests.cpu,CPULIM:spec.containers[*].resources.limits.cpu' --sort-by=.metadata.namespace --sort-by='.metadata.name'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+
+; ------------------------------------------------
+
+% kubernetes, node, subnet
+
+# Get kubernetes nodes pod subnets
+
+kubectl get nodes -o=custom-columns='NAME:.metadata.name,POD_CIDR:.spec.podCIDR'
