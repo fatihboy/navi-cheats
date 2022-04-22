@@ -1,0 +1,9 @@
+; ------------------------------------------------
+; This file contains cheatsheet for brew
+; ------------------------------------------------
+
+% brew, update
+
+# Update outdated brew packages
+
+brew update && brew upgrade `brew outdated`
