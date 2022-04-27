@@ -74,3 +74,34 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 # Get kubernetes nodes pod subnets
 
 kubectl get nodes -o=custom-columns='NAME:.metadata.name,POD_CIDR:.spec.podCIDR'
+
+; ------------------------------------------------
+
+% kubernetes, pod, delete
+
+# Deletes a pod with grace period 0 on given namespace in a kubernetes cluster
+
+kubectl get delete -n <namespace> <pod> --grace-period 0
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod, curl, sh
+
+# Creates a curl container and attaches to sh process in kubernetes
+
+kubectl run -i --tty curl -n <namespace> --image=enterprisecodingcom/curl -- sh
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod, busybox, sh
+
+# Creates a busybox container and attaches to sh process in kubernetes
+
+kubectl run -i --tty busybox -n <namespace> --image=busybox -- sh
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
