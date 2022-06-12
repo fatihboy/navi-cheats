@@ -105,3 +105,21 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 kubectl run -i --tty busybox -n <namespace> --image=busybox -- sh
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod, evicted
+
+# Deletes evicted pods on all namespaces
+
+kubectl get pods --all-namespaces -o json | jq '.items[] | select(.status.reason!=null) | select(.status.reason | contains("Evicted")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c 
+
+; ------------------------------------------------
+
+% kubernetes, pod, evicted
+
+# Deletes evicted pods on given namespace
+
+kubectl get pods -n <namespace> -o json | jq '.items[] | select(.status.reason!=null) | select(.status.reason | contains("Evicted")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c 
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
