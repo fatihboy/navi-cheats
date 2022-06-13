@@ -81,7 +81,7 @@ kubectl get nodes -o=custom-columns='NAME:.metadata.name,POD_CIDR:.spec.podCIDR'
 
 # Deletes a pod with grace period 0 on given namespace in a kubernetes cluster
 
-kubectl get delete -n <namespace> <pod> --grace-period 0
+kubectl delete po -n <namespace> <pod> --grace-period 0
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
@@ -95,6 +95,19 @@ $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.n
 kubectl run -i --tty curl -n <namespace> --image=enterprisecodingcom/curl -- sh
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod, shell
+
+# starts a shell process in given pod
+
+kubectl exec --stdin --tty -n <namespace> <pod> -c <container> -- <shell>
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ container: kubectl get pod -n <namespace> <pod> --template '{{range .spec.containers}}{{.name}}{{"\n"}}{{end}}'
+$ shell: echo 'sh bash' | tr ' ' '\n'
 
 ; ------------------------------------------------
 
