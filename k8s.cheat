@@ -196,4 +196,4 @@ kubectl set image deployment <deployment> -n <namespace> <container>=<image>
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ deployment: kubectl get deployment -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
-$ container: kubectl get deployment -n <namespace> <deployment> --template '{{range .spec.containers}}{{.name}}{{"\n"}}{{end}}'
+$ container: kubectl get deployment -n <namespace> <deployment> --template '{{range .spec.template.spec.containers}}{{.name}}{{"\n"}}{{end}}'
