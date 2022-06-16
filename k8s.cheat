@@ -38,6 +38,16 @@ $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.n
 
 % kubernetes, logs
 
+# Show logs of all containers for a pod in given namespace
+kubectl logs -n <namespace> <pod> --all-containers
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, logs
+
 # Show logs of a pod in given namespace
 kubectl logs -n <namespace> <pod>
 
