@@ -207,3 +207,26 @@ $ container: kubectl get deployment -n <namespace> <deployment> --template '{{ra
 kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n <namespace>
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, secret, decode
+
+# Decode all fields of a secret in a given namespace
+
+kubectl get secret <secret> -n <namespace> -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, secret, decode
+
+# Decode a secret value in a given namespace
+
+kubectl get secrets <secret> -n <namespace> --template="{{index .data \"<field>\" | base64decode}}
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ field: kubectl get secret <secret> -n <namespace> -o go-template='{{range $k,$v := .data}}{{printf "%s" $k}}{{"\n"}}{{end}}'
