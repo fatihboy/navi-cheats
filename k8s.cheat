@@ -177,3 +177,11 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 kubectl get pods -n <namespace> -o=custom-columns='NAME:spec.containers[*].name,MEMREQ:spec.containers[*].resources.requests.memory,MEMLIM:spec.containers[*].resources.limits.memory,CPUREQ:spec.containers[*].resources.requests.cpu,CPULIM:spec.containers[*].resources.limits.cpu'
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, node, memorypressure, diskpressure, pidressure
+
+# List nodes with MemoryPressure, DiskPressure, PIDPressure columns
+
+kubectl get nodes -o custom-columns="Name:.metadata.name,InternalIP:.status.addresses[0].address,MemoryPressure:.status.conditions[0].status,DiskPressure:.status.conditions[1].status,PIDPressure:.status.conditions[2].status,Ready:.status.conditions[3].status"
