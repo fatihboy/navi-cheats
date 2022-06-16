@@ -56,6 +56,17 @@ $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.n
 
 ; ------------------------------------------------
 
+% kubernetes, logs
+
+# Show logs of a containers of a pod in given namespace
+kubectl logs -n <namespace> <pod> -c <container>
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ container: kubectl get pod -n <namespace> <pod> --template '{{range .spec.containers}}{{.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
 % kubernetes, secret
 
 # Get a kubernetes secret value
