@@ -225,7 +225,7 @@ $ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metad
 
 # Decode a secret value in a given namespace
 
-kubectl get secrets <secret> -n <namespace> --template="{{index .data \"<field>\" | base64decode}}
+kubectl get secrets <secret> -n <namespace> --template="{{index .data \"<field>\" | base64decode}}"
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
