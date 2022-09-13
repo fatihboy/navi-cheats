@@ -170,6 +170,24 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 
 ; ------------------------------------------------
 
+% kubernetes, pod, crashloopbackoff
+
+# Deletes CrashLoopBackOff pods on all namespaces
+
+kubectl get pods -A -o json |  jq '.items[] | select(.status.containerStatuses[].state.waiting.reason!=null) | select(.status.containerStatuses[].state.waiting.reason | contains("CrashLoopBackOff")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c
+
+; ------------------------------------------------
+
+% kubernetes, pod, crashloopbackoff
+
+# Deletes CrashLoopBackOff pods on given namespace
+
+kubectl get pods -n <namespace> -o json |  jq '.items[] | select(.status.containerStatuses[].state.waiting.reason!=null) | select(.status.containerStatuses[].state.waiting.reason | contains("CrashLoopBackOff")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
 % kubernetes, pod, limits, requests
 
 # List pod's limits and requests on a given namespace
