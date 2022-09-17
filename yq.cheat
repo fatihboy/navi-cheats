@@ -1,0 +1,14 @@
+; ------------------------------------------------
+; This file contains cheatsheet for yq
+; ------------------------------------------------
+
+% yq, kubernetes, deployment, image
+
+# Replace container image of a deployment inside a yaml file
+
+CONTAINER_IMAGE=<container_image> yq e -i '.spec.template.spec.containers[<container_index>].image = env(CONTAINER_IMAGE)' <deployment_yaml_file>
+
+$ deployment_yaml_file: find . -maxdepth 1 -iname '*.yaml' -or -iname '*.yml'
+$ container_index: yq e '.spec.template.spec.containers[] | .name + " [" + .image + "]"' <deployment_yaml_file> | nl -nln -v 0 --- --column 1 
+$ container_image: yq e '.spec.template.spec.containers[<container_index>] | .image' <deployment_yaml_file> 
+; ------------------------------------------------
