@@ -1,0 +1,11 @@
+; ------------------------------------------------
+; This file contains cheatsheet for git
+; ------------------------------------------------
+
+% git, clone, ssl, self-signed
+
+# Clone git repository with self-signed certificate 
+
+git -c http.sslVerify=false clone <repo_url>
+
+; ------------------------------------------------
