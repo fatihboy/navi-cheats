@@ -129,6 +129,16 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 
 ; ------------------------------------------------
 
+% kubernetes, pod, dns, sh
+
+# Creates a container with dns utilities and attaches to sh process in kubernetes
+
+kubectl run -i --tty curl -n <namespace> --image=enterprisecodingcom/dnsutils:latest -- sh
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
 % kubernetes, pod, shell
 
 # starts a shell process in given pod
