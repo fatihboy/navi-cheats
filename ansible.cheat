@@ -1,0 +1,17 @@
+; ------------------------------------------------
+; This file contains cheatsheet for ansible
+; ------------------------------------------------
+
+% ansible, ping
+
+# Run ping module for all hosts
+
+ansible -m ping all
+
+; ------------------------------------------------
+
+% ansible, command
+
+# Run ping commans on all hosts
+
+ansible -m command -a "<command2run>" all
