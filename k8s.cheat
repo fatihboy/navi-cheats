@@ -258,3 +258,11 @@ kubectl get secrets <secret> -n <namespace> --template="{{index .data \"<field>\
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ secret: kubectl get secret -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ field: kubectl get secret <secret> -n <namespace> -o go-template='{{range $k,$v := .data}}{{printf "%s" $k}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, container, image
+
+# List all container images in all namespaces
+
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
