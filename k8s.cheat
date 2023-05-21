@@ -266,3 +266,37 @@ $ field: kubectl get secret <secret> -n <namespace> -o go-template='{{range $k,$
 # List all container images in all namespaces
 
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
+
+; ------------------------------------------------
+
+% kubernetes, node, pod, shell
+
+# Shell access to given node
+
+kubectl run nsenter --restart=Never -it --rm --image overriden --overrides '
+{
+  "spec": {
+    "hostPID": true,
+    "hostNetwork": true,
+    "nodeSelector": { "kubernetes.io/hostname": "<node>" },
+    "tolerations": [{
+        "operator": "Exists"
+    }],
+    "containers": [
+      {
+        "name": "nsenter",
+        "image": "alpine",
+        "command": [
+          "/usr/bin/nsenter", "--target=1", "--", "su", "-"
+        ],
+        "stdin": true,
+        "tty": true,
+        "securityContext": {
+          "privileged": true
+        }
+      }
+    ]
+  }
+}' --attach "$@"
+
+$ node: kubectl get node --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
