@@ -300,3 +300,11 @@ kubectl run nsenter --restart=Never -it --rm --image overriden --overrides '
 }' --attach "$@"
 
 $ node: kubectl get node --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, node, condition
+
+# Get node conditions
+
+kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{$node.metadata.name}}{{": "}}{{.type}}{{":"}}{{.status}}{{"\n"}}{{end}}{{end}}'
