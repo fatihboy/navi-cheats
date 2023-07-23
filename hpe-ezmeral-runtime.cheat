@@ -1,0 +1,26 @@
+; -------------------------------------------------------
+; This file contains cheatsheet for HPE Ezmeral Runtime
+; -------------------------------------------------------
+
+% ezmeral runtime, kubernetes, service
+
+# Expose service from gateway
+
+kubectl label service <service> -n <namespace> hpecp.hpe.com/hpecp-internal-gateway=true
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ service: kubectl get service -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+% ezmeral runtime, kubernetes, service
+
+# List all exposed services
+
+k get svc -A -l hpecp.hpe.com/hpecp-internal-gateway=true
+
+% ezmeral runtime, kubernetes, service
+
+# List all exposed services in a given namespace
+
+k get svc -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
