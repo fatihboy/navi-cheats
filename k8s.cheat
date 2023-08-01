@@ -347,3 +347,9 @@ kubectl -n <namespace> get pods -ojson | jq '.items[].status.containerStatuses |
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 
+
+% kubernetes, pod, memory
+
+# List the pods ordered by memory usage
+
+kubectl top pods -A --sort-by="memory"
