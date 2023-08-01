@@ -337,3 +337,13 @@ kubectl cp <namespace>/<pod>:<source> <target> -c <container>
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ container: kubectl get pod -n <namespace> <pod> --template '{{range .spec.containers}}{{.name}}{{"\n"}}{{end}}'
+
+
+% kubernetes, pod, ready, jq
+
+# List the pods that are not ready in a given namespace
+
+kubectl -n <namespace> get pods -ojson | jq '.items[].status.containerStatuses | select(.[].ready == false) | .metadata.name'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
