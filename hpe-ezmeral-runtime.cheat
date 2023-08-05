@@ -15,13 +15,13 @@ $ service: kubectl get service -n <namespace> --template '{{range .items}}{{.met
 
 # List all exposed services
 
-k get svc -A -l hpecp.hpe.com/hpecp-internal-gateway=true
+kubectl get svc -A -l hpecp.hpe.com/hpecp-internal-gateway=true
 
 % ezmeral runtime, kubernetes, service
 
 # List all exposed services in a given namespace
 
-k get svc -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true
+kubectl get svc -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 
@@ -29,7 +29,21 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 
 # Get exposed service url
 
-k get svc <service> -n <namespace> -o=jsonpath='{.metadata.annotations.hpecp-internal-gateway\/80}{"\n"}'
+kubectl get svc <service> -n <namespace> -o custom-columns="NAME":.metadata.name,"SSL PORT":.metadata.annotations.hpecp-internal-gateway\/443,"NON-SSL PORT":.metadata.annotations.hpecp-internal-gateway\/80
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 $ service: kubectl get service -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+% ezmeral runtime, kubernetes, service, url
+
+# Get all exposed services url in a given namespace
+
+kubectl get svc -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true -o custom-columns="NAME":.metadata.name,"SSL PORT":.metadata.annotations.hpecp-internal-gateway\/443,"NON-SSL PORT":.metadata.annotations.hpecp-internal-gateway\/80
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+% ezmeral runtime, kubernetes, service, url
+
+# Get all exposed services urls
+
+kubectl get svc -A -l hpecp.hpe.com/hpecp-internal-gateway=true -o custom-columns="NAMESPACE":.metadata.namespace,"NAME":.metadata.name,"SSL PORT":.metadata.annotations.hpecp-internal-gateway\/443,"NON-SSL PORT":.metadata.annotations.hpecp-internal-gateway\/80
