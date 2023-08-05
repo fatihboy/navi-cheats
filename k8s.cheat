@@ -353,3 +353,15 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 # List the pods ordered by memory usage
 
 kubectl top pods -A --sort-by="memory"
+
+
+% kubernetes, expose, service, pod, service, replicationcontroller, deployment, replicaset
+
+# Exposes given Kubernetes resource
+
+kubectl expose <resource> -n <namespace> <resource-name> --type=<service-type> --name=<name>
+
+$ resource: echo "pod service replicationcontroller deployment replicaset" | tr ' ' '\n'
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ resource-name: kubectl get <resource> -n <namespace> --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ service-type: echo "ClusterIP NodePort LoadBalancer ExternalName" | tr ' ' '\n'
