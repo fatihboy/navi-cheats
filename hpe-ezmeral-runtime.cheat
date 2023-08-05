@@ -24,3 +24,12 @@ k get svc -A -l hpecp.hpe.com/hpecp-internal-gateway=true
 k get svc -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+% ezmeral runtime, kubernetes, service, url
+
+# Get exposed service url
+
+k get svc <service> -n <namespace> -o=jsonpath='{.metadata.annotations.hpecp-internal-gateway\/80}{"\n"}'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+$ service: kubectl get service -n <namespace> -l hpecp.hpe.com/hpecp-internal-gateway=true --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
