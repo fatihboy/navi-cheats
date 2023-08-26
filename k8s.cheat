@@ -123,7 +123,17 @@ $ pod: kubectl get pods -n <namespace> --template '{{range .items}}{{.metadata.n
 
 # Creates a curl container and attaches to sh process in kubernetes
 
-kubectl run -i --tty curl -n <namespace> --image=enterprisecodingcom/curl -- sh
+kubectl run -i --tty curl -n <namespace> --image=enterprisecodingcom/curl --rm -- sh
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod, ldap, sh
+
+# Creates a container with openldap-clients installed and attaches to sh process in kubernetes
+
+kubectl run -i --tty openldap-clients -n <namespace> --image=enterprisecodingcom/curl --rm --command -- sh
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 
