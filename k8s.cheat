@@ -133,7 +133,7 @@ $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"
 
 # Creates a container with openldap-clients installed and attaches to sh process in kubernetes
 
-kubectl run -i --tty openldap-clients -n <namespace> --image=enterprisecodingcom/curl --rm --command -- sh
+kubectl run -i --tty openldap-clients -n <namespace> --image=quay.io/enterprisecoding/openldap-clients --rm --command -- sh
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 
