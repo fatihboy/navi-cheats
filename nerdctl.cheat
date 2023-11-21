@@ -1,0 +1,29 @@
+; ------------------------------------------------
+; This file contains cheatsheet for nerdctl
+; ------------------------------------------------
+
+% nerdctl, namespace, list
+
+# List nerdctl namespaces
+
+nerdctl namespace ls
+
+; ------------------------------------------------
+
+% nerdctl, kubernetes, list
+
+# List containers in k8s.io namespace with nerdctl
+
+nerdctl --namespace k8s.io ps
+
+; ------------------------------------------------
+
+% nerdctl, kubernetes, list
+
+# List containers in given namespace with nerdctl
+
+nerdctl --namespace <namespace> ps
+
+$ namespace: nerdctl namespace ls -q
+
+; ------------------------------------------------
