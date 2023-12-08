@@ -398,3 +398,21 @@ kubectl get pods -A -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.c
 kubectl get pods -n <namespace> -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[].resources.limits.cpu}{"\t"}{.spec.containers[].resources.limits.memory}{"\n"}{end}' | sort -k2,2
 
 $ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+
+; ------------------------------------------------
+
+% kubernetes, pod
+
+# Watch all pods that are not ready
+
+watch 'kubectl get pods -A | grep -vE "1/1|2/2|3/3|4/4|Completed"'
+
+; ------------------------------------------------
+
+% kubernetes, pod
+
+# Watch all pods in a given namespace that are not ready
+
+watch 'kubectl get pods -n <namespace> | grep -vE "1/1|2/2|3/3|4/4|Completed"'
+
+$ namespace: kubectl get ns --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
