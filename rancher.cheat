@@ -1,0 +1,9 @@
+; ------------------------------------------------
+; This file contains cheatsheet for SUSE Rancher
+; ------------------------------------------------
+
+% rancher, admin, password, reset
+
+# Reset SUSE Rancher admin password
+
+kubectl -n cattle-system exec $(kubectl -n cattle-system get pods -l app=rancher --no-headers | head -1 | awk '{ print $1 }') -c rancher -- reset-password
